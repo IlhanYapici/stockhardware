@@ -1,0 +1,14 @@
+#navbar {
+  display: grid;
+  grid-template-columns: 1fr repeat(1, auto) 1fr;
+  column-gap: 5px;
+  justify-items: center;
+}
+
+#navbar__links {
+  grid-column-start: 2;
+}
+
+#navbar > button {
+  margin-left: auto;
+}
