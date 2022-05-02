@@ -1,13 +1,10 @@
-import { Flex, Grid, Heading } from '@chakra-ui/react';
+import { Flex } from "@chakra-ui/react";
+import { Outlet } from "react-router-dom";
 
-import SearchBar from '../searchBar/searchBar';
-
-const GpuPanel = () => {
-  return (
-    <Flex flexDirection="column">
-      <SearchBar target="GPU" />
-    </Flex>
-  );
-};
+const GpuPanel = () => (
+  <Flex id="gpu__panel" w="100%">
+    <Outlet />
+  </Flex>
+);
 
 export default GpuPanel;
