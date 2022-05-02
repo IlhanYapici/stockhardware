@@ -10,29 +10,25 @@ import {
   Input,
   InputRightElement,
   Switch,
-  Alert,
-  AlertIcon,
-  AlertTitle,
-  AlertDescription,
   HStack,
-} from '@chakra-ui/react';
-import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
-import { useState } from 'react';
-import axios from 'axios';
+} from "@chakra-ui/react";
+import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
+import { useState } from "react";
+import axios from "axios";
 
-import Dock from '../dock/dock';
+import Dock from "../dock/dock";
 
 const AddUser = () => {
   const toast = useToast();
-  const [firstname, setFirstname] = useState('');
-  const [lastname, setLastname] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [phone, setPhone] = useState('');
-  const [address, setAddress] = useState('');
-  const [city, setCity] = useState('');
-  const [postalcode, setPostalcode] = useState('');
-  const [country, setCountry] = useState('');
+  const [firstname, setFirstname] = useState("");
+  const [lastname, setLastname] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [phone, setPhone] = useState("");
+  const [address, setAddress] = useState("");
+  const [city, setCity] = useState("");
+  const [postalcode, setPostalcode] = useState("");
+  const [country, setCountry] = useState("");
   const [isAdmin, setIsAdmin] = useState(false);
   const [show, setShow] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -46,26 +42,23 @@ const AddUser = () => {
     });
   };
 
-  const addUser = async e => {
+  const addUser = async (e) => {
     e.preventDefault();
 
     setError(false);
     setIsLoading(true);
 
-    const { user } = JSON.parse(localStorage.getItem('userInfo'));
+    const { user } = JSON.parse(localStorage.getItem("userInfo"));
     const bearer = `Bearer ${user}`;
 
     const config = {
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
         Authorization: bearer,
       },
     };
 
-    const url =
-      document.location.hostname === 'localhost'
-        ? 'http://localhost:5000/users'
-        : 'http://10.0.0.11:5000/users';
+    const url = "http://10.0.0.3:5000/users";
 
     await axios
       .post(
@@ -85,11 +78,11 @@ const AddUser = () => {
         config
       )
       .then(() => {
-        setToast('Success!', 'User created.', 'success');
+        setToast("Success!", "User created.", "success");
       })
-      .catch(err => {
+      .catch((err) => {
         setError(err);
-        setToast('Error!', error, 'error');
+        setToast("Error!", error, "error");
       });
 
     setIsLoading(false);
@@ -107,11 +100,11 @@ const AddUser = () => {
         >
           <FormControl mt={4} isRequired>
             <FormLabel>First name</FormLabel>
-            <Input type="text" onChange={e => setFirstname(e.target.value)} />
+            <Input type="text" onChange={(e) => setFirstname(e.target.value)} />
           </FormControl>
           <FormControl mt={4} isRequired>
             <FormLabel>Last name</FormLabel>
-            <Input type="text" onChange={e => setLastname(e.target.value)} />
+            <Input type="text" onChange={(e) => setLastname(e.target.value)} />
           </FormControl>
 
           <FormControl mt={4} isRequired>
@@ -119,16 +112,16 @@ const AddUser = () => {
             <Input
               type="email"
               placeholder="example@xyz.com"
-              onChange={e => setEmail(e.target.value)}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </FormControl>
           <FormControl mt={4} isRequired>
             <FormLabel>Password</FormLabel>
             <InputGroup>
               <Input
-                type={show ? 'text' : 'password'}
+                type={show ? "text" : "password"}
                 placeholder="********"
-                onChange={e => setPassword(e.target.value)}
+                onChange={(e) => setPassword(e.target.value)}
               />
               <InputRightElement w="3.5rem">
                 <Button
@@ -147,24 +140,27 @@ const AddUser = () => {
             <Input
               type="tel"
               placeholder="0123456789"
-              onChange={e => setPhone(e.target.value)}
+              onChange={(e) => setPhone(e.target.value)}
             />
           </FormControl>
           <FormControl mt={4} isRequired>
             <FormLabel>Address</FormLabel>
-            <Input type="text" onChange={e => setAddress(e.target.value)} />
+            <Input type="text" onChange={(e) => setAddress(e.target.value)} />
           </FormControl>
           <FormControl mt={4} isRequired>
             <FormLabel>City</FormLabel>
-            <Input type="text" onChange={e => setCity(e.target.value)} />
+            <Input type="text" onChange={(e) => setCity(e.target.value)} />
           </FormControl>
           <FormControl mt={4} isRequired>
             <FormLabel>Postal code</FormLabel>
-            <Input type="text" onChange={e => setPostalcode(e.target.value)} />
+            <Input
+              type="text"
+              onChange={(e) => setPostalcode(e.target.value)}
+            />
           </FormControl>
           <FormControl mt={4} isRequired>
             <FormLabel>Country</FormLabel>
-            <Input type="text" onChange={e => setCountry(e.target.value)} />
+            <Input type="text" onChange={(e) => setCountry(e.target.value)} />
           </FormControl>
           <FormControl
             mt={4}
