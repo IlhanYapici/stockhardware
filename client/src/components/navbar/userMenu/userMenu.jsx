@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import {
   useColorMode,
   Avatar,
@@ -11,37 +11,33 @@ import {
   MenuList,
   MenuItem,
   MenuDivider,
-} from '@chakra-ui/react';
+} from "@chakra-ui/react";
 
 const UserMenu = ({ isAdmin, firstname, lastname }) => {
-  const { toggleColorMode } = useColorMode();
-
-  const getColorMode = () => {
-    return localStorage.getItem('chakra-ui-color-mode') || 'light';
-  };
+  const { colorMode, toggleColorMode } = useColorMode();
 
   const logOut = () => {
-    localStorage.removeItem('userInfo');
-    window.location.href = '/';
+    localStorage.removeItem("userInfo");
+    window.location.href = "/";
   };
 
   return (
     <Menu closeOnBlur={true} computePositionOnMount={true}>
       <MenuButton>
         {isAdmin ? (
-          <Avatar name={firstname + ' ' + lastname}>
+          <Avatar name={firstname + " " + lastname}>
             <AvatarBadge bg="tomato" boxSize="1em" />
           </Avatar>
         ) : (
-          <Avatar name={firstname + ' ' + lastname} />
+          <Avatar name={firstname + " " + lastname} />
         )}
       </MenuButton>
       <MenuList zIndex="dropdown" position="relative">
         <MenuGroup
           title={
             isAdmin
-              ? firstname + ' ' + lastname + ' (admin)'
-              : firstname + ' ' + lastname
+              ? firstname + " " + lastname + " (admin)"
+              : firstname + " " + lastname
           }
         >
           <MenuItem>Profile</MenuItem>
@@ -56,7 +52,7 @@ const UserMenu = ({ isAdmin, firstname, lastname }) => {
         <MenuGroup>
           <MenuOptionGroup
             onChange={() => toggleColorMode()}
-            defaultValue={() => getColorMode()}
+            defaultValue={colorMode}
             title="Theme"
             type="radio"
           >
