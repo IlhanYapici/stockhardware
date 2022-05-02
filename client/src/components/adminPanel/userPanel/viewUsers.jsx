@@ -1,46 +1,43 @@
-import { Flex, Grid } from '@chakra-ui/react';
-import { useState, useEffect } from 'react';
-import axios from 'axios';
+import { Flex, Grid } from "@chakra-ui/react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
-import SearchBar from '../searchBar/searchBar';
-import UserCard from './userCard';
+import SearchBar from "../searchBar/searchBar";
+import UserCard from "./userCard";
 
 const ViewUsers = () => {
   const [users, setUsers] = useState([]);
   const [hasLoaded, setHasLoaded] = useState(false);
-  const [input, setInput] = useState('');
+  const [input, setInput] = useState("");
 
   useEffect(() => {
     const fetchUsers = async () => {
       setHasLoaded(false);
-      const { user } = JSON.parse(localStorage.getItem('userInfo'));
+      const { user } = JSON.parse(localStorage.getItem("userInfo"));
       const bearer = `Bearer ${user}`;
-      try {
-        const url =
-          document.location.hostname === 'localhost'
-            ? 'http://localhost:5000/users'
-            : 'http://10.0.0.11:5000/users';
+      const url = "http://10.0.0.3:5000/users";
 
-        const { data } = await axios.get(url, {
+      await axios
+        .get(url, {
           headers: { Authorization: bearer },
+        })
+        .then((res) => {
+          setUsers(res.data);
+          setHasLoaded(true);
+        })
+        .catch((err) => {
+          console.log(err);
+          setHasLoaded(false);
         });
-        setUsers(data);
-        setHasLoaded(true);
-      } catch (err) {
-        console.error(err);
-      }
     };
-    fetchUsers().catch(err => {
-      console.error(err);
-      setHasLoaded(false);
-    });
+    fetchUsers();
   }, []);
 
-  const filteredData = users.filter(user => {
-    if (input === '') return user;
+  const filteredData = users.filter((user) => {
+    if (input === "") return user;
     return (
       user.firstname.toLowerCase() +
-      ' ' +
+      " " +
       user.lastname.toLowerCase()
     ).includes(input.toLowerCase());
   });
@@ -58,8 +55,8 @@ const ViewUsers = () => {
           <UserCard
             hasLoaded={hasLoaded}
             user={user}
-            key={'u' + i}
-            parentKey={'u' + i}
+            key={"u" + i}
+            parentKey={"u" + i}
           />
         ))}
       </Grid>
