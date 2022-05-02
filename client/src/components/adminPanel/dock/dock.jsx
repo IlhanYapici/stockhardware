@@ -8,13 +8,14 @@ const Dock = ({ isLoading, submit, tab, btn, btnText }) => {
   const capitalize = string => string.charAt(0).toUpperCase() + string.slice(1);
 
   const setBtn = () => {
-    if (!btn) return <></>;
     return isLoading ? (
       <Button
         isLoading
         colorScheme="green"
         onClick={() => submit()}
         rightIcon={btnText === 'add' ? <AddIcon /> : <DownloadIcon />}
+        justifySelf="flex-start"
+        ml="2rem"
       >
         {capitalize(btnText)}
       </Button>
@@ -25,6 +26,8 @@ const Dock = ({ isLoading, submit, tab, btn, btnText }) => {
         colorScheme="green"
         onClick={e => submit(e)}
         rightIcon={btnText === 'add' ? <AddIcon /> : <DownloadIcon />}
+        justifySelf="flex-start"
+        ml="2rem"
       >
         {capitalize(btnText)}
       </Button>
@@ -49,9 +52,10 @@ const Dock = ({ isLoading, submit, tab, btn, btnText }) => {
         <Grid
           position="fixed"
           bottom={0}
-          m={5}
-          w="fit-content"
+          m="10px"
+          w="calc(100vw - 20px - 17px)"
           h="42.5px"
+          left="0"
           zIndex="sticky"
           templateColumns="repeat(2, 1fr)"
           gap="5rem"
@@ -63,6 +67,8 @@ const Dock = ({ isLoading, submit, tab, btn, btnText }) => {
             colorScheme="messenger"
             onClick={() => navigate('../')}
             leftIcon={<ChevronLeftIcon />}
+            justifySelf="flex-end"
+            mr="2rem"
           >
             Back to {capitalize(tab)}
           </Button>
@@ -71,7 +77,7 @@ const Dock = ({ isLoading, submit, tab, btn, btnText }) => {
       );
   };
 
-  return <Center id="admin__dock">{setDock()}</Center>;
+  return <Center id="admin__dock" bg="gray.800" h="calc(42.5px + 20px)">{setDock()}</Center>;
 };
 
 export default Dock;
