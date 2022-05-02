@@ -1,9 +1,11 @@
-import { Flex, Heading, Skeleton, HStack, Badge } from '@chakra-ui/react';
-import { useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import axios from 'axios';
+import { Flex, Heading, Skeleton, HStack, Badge } from "@chakra-ui/react";
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
-import Dock from '../dock/dock';
+import Dock from "../dock/dock";
+
+// TODO: Error while fetching user. Trying to access 'data' before it is defined.
 
 const UserDetails = () => {
   const { userId } = useParams();
@@ -14,27 +16,27 @@ const UserDetails = () => {
     const getUser = async () => {
       setHasFetched(false);
 
-      const { user } = JSON.parse(localStorage.getItem('userInfo'));
+      const { user } = JSON.parse(localStorage.getItem("userInfo"));
       const bearer = `Bearer ${user}`;
 
-      const url =
-        document.location.hostname === 'localhost'
-          ? `http://localhost:5000/users/${userId}`
-          : `http://10.0.0.11:5000/users/${userId}`;
+      const url = `http://10.0.0.3:5000/users/${userId}`;
 
-      const { data } = await axios.get(url, {
-        headers: { Authorization: bearer },
-      });
-
-      setUser(data);
-      setHasFetched(true);
+      const { data } = await axios
+        .get(url, {
+          headers: { Authorization: bearer },
+        })
+        .then(() => {
+          setUser(data);
+          setHasFetched(true);
+        })
+        .catch((err) => {
+          console.log(err);
+          setHasFetched(false);
+        });
     };
 
-    if (localStorage.getItem('userInfo')) {
-      getUser().catch(err => {
-        console.error(err);
-        setHasFetched(false);
-      });
+    if (localStorage.getItem("userInfo")) {
+      getUser();
     }
   }, []);
 
@@ -43,7 +45,7 @@ const UserDetails = () => {
       <Flex id="user__details" h="100%" w="100%" flexDirection="column">
         <Skeleton isLoaded={hasFetched}>
           <HStack>
-            <Heading>{user.firstname + ' ' + user.lastname}</Heading>
+            <Heading>{user.firstname + " " + user.lastname}</Heading>
             <Badge
               textAlign="center"
               mt="9px !important"
@@ -52,9 +54,9 @@ const UserDetails = () => {
               h="fit-content"
               p="2px 7.5px"
               verticalAlign="middle"
-              colorScheme={user.isAdmin ? 'red' : 'linkedin'}
+              colorScheme={user.isAdmin ? "red" : "linkedin"}
             >
-              {user.isAdmin ? 'admin' : 'user'}
+              {user.isAdmin ? "admin" : "user"}
             </Badge>
           </HStack>
         </Skeleton>
