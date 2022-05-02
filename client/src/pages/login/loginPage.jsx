@@ -1,7 +1,7 @@
-import { Flex, Text } from '@chakra-ui/react';
-import { Link } from 'react-router-dom';
+import { Flex, Text } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 
-import LoginForm from '../../components/login/loginForm';
+import LoginForm from "../../components/login/loginForm";
 
 const LoginPage = () => {
   return (
