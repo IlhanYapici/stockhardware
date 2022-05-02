@@ -10,12 +10,14 @@ import {
   HStack,
   Switch,
   toast,
-} from '@chakra-ui/react';
-import { useParams } from 'react-router-dom';
-import { useState, useEffect } from 'react';
-import axios from 'axios';
+} from "@chakra-ui/react";
+import { useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
-import Dock from '../dock/dock';
+const toast = useToast();
+
+import Dock from "../dock/dock";
 
 const EditUser = () => {
   const toast = useToast();
@@ -35,7 +37,7 @@ const EditUser = () => {
   const [hasFetched, setHasFetched] = useState(false);
 
   const handleChange = (e, setter) => {
-    if (e.target.value === '') {
+    if (e.target.value === "") {
       setter(user[e.target.name]);
     } else {
       setter(e.target.value);
@@ -50,26 +52,23 @@ const EditUser = () => {
     });
   };
 
-  const updateUser = async e => {
+  const updateUser = async (e) => {
     e.preventDefault();
 
     setError(false);
     setIsLoading(true);
 
-    const { user } = JSON.parse(localStorage.getItem('userInfo'));
+    const { user } = JSON.parse(localStorage.getItem("userInfo"));
     const bearer = `Bearer ${user}`;
 
     const config = {
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
         Authorization: bearer,
       },
     };
 
-    const url =
-      document.location.hostname === 'localhost'
-        ? `http://localhost:5000/users/${userId}`
-        : `http://10.0.0.11:5000/users/${userId}`;
+    const url = `http://10.0.0.3:5000/users/${userId}`;
 
     await axios
       .put(
@@ -88,11 +87,11 @@ const EditUser = () => {
         config
       )
       .then(() => {
-        setToast('Success!', 'User updated.', 'success');
+        setToast("Success!", "User updated.", "success");
       })
-      .catch(err => {
+      .catch((err) => {
         setError(err);
-        setToast('Error!', error, 'error');
+        setToast("Error!", error, "error");
       });
 
     setIsLoading(false);
@@ -101,13 +100,10 @@ const EditUser = () => {
   useEffect(() => {
     const getUser = async () => {
       setHasFetched(false);
-      const { user } = JSON.parse(localStorage.getItem('userInfo'));
+      const { user } = JSON.parse(localStorage.getItem("userInfo"));
       const bearer = `Bearer ${user}`;
 
-      const url =
-        document.location.hostname === 'localhost'
-          ? `http://localhost:5000/users/${userId}`
-          : `http://10.0.0.11:5000/users/${userId}`;
+      const url = `http://10.0.0.3:5000/users/${userId}`;
 
       const { data } = await axios.get(url, {
         headers: { Authorization: bearer },
@@ -126,8 +122,8 @@ const EditUser = () => {
       setHasFetched(true);
     };
 
-    if (localStorage.getItem('userInfo')) {
-      getUser().catch(err => {
+    if (localStorage.getItem("userInfo")) {
+      getUser().catch((err) => {
         console.error(err);
         setHasFetched(false);
       });
@@ -136,10 +132,16 @@ const EditUser = () => {
 
   return (
     <>
-      <Flex h="100%" w="calc(100vw - 200px - 17px)" flexDirection="column">
+      <Flex
+        id="user__edit"
+        h="100%"
+        w="100%"
+        flexDirection="column"
+        justifyContent="center"
+      >
         <Skeleton isLoaded={hasFetched}>
           <Heading w="100%">
-            {user.firstname + ' ' + user.lastname + ` (${userId})`}
+            {user.firstname + " " + user.lastname + ` (${userId})`}
           </Heading>
         </Skeleton>
         <form onSubmit={updateUser}>
@@ -154,7 +156,7 @@ const EditUser = () => {
               <Skeleton isLoaded={hasFetched}>
                 <Input
                   name="firstname"
-                  onChange={e => handleChange(e, setFirstname)}
+                  onChange={(e) => handleChange(e, setFirstname)}
                   type="text"
                   placeholder={user.firstname}
                 />
@@ -165,7 +167,7 @@ const EditUser = () => {
               <Skeleton isLoaded={hasFetched}>
                 <Input
                   name="lastname"
-                  onChange={e => handleChange(e, setLastname)}
+                  onChange={(e) => handleChange(e, setLastname)}
                   type="text"
                   placeholder={user.lastname}
                 />
@@ -176,7 +178,7 @@ const EditUser = () => {
               <Skeleton isLoaded={hasFetched}>
                 <Input
                   name="email"
-                  onChange={e => handleChange(e, setEmail)}
+                  onChange={(e) => handleChange(e, setEmail)}
                   type="email"
                   placeholder={user.email}
                 />
@@ -187,7 +189,7 @@ const EditUser = () => {
               <Skeleton isLoaded={hasFetched}>
                 <Input
                   name="phone"
-                  onChange={e => handleChange(e, setPhone)}
+                  onChange={(e) => handleChange(e, setPhone)}
                   type="text"
                   placeholder={user.phone}
                 />
@@ -198,7 +200,7 @@ const EditUser = () => {
               <Skeleton isLoaded={hasFetched}>
                 <Input
                   name="address"
-                  onChange={e => handleChange(e, setAddress)}
+                  onChange={(e) => handleChange(e, setAddress)}
                   type="text"
                   placeholder={user.address}
                 />
@@ -209,7 +211,7 @@ const EditUser = () => {
               <Skeleton isLoaded={hasFetched}>
                 <Input
                   name="postalcode"
-                  onChange={e => handleChange(e, setPostalcode)}
+                  onChange={(e) => handleChange(e, setPostalcode)}
                   type="text"
                   placeholder={user.postalcode}
                 />
@@ -220,7 +222,7 @@ const EditUser = () => {
               <Skeleton isLoaded={hasFetched}>
                 <Input
                   name="city"
-                  onChange={e => handleChange(e, setCity)}
+                  onChange={(e) => handleChange(e, setCity)}
                   type="text"
                   placeholder={user.city}
                 />
@@ -231,7 +233,7 @@ const EditUser = () => {
               <Skeleton isLoaded={hasFetched}>
                 <Input
                   name="country"
-                  onChange={e => handleChange(e, setCountry)}
+                  onChange={(e) => handleChange(e, setCountry)}
                   type="text"
                   placeholder={user.country}
                 />
