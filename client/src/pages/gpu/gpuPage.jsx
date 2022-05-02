@@ -12,7 +12,7 @@ class GpuPage extends Component {
     };
   }
   componentDidMount() {
-    axios.get('http://localhost:5000/gpu/get').then(gpu => {
+    axios.get('http://10.0.0.3:5000/gpu').then(gpu => {
       this.setState({ gpu: gpu.data });
     });
   }

@@ -12,7 +12,7 @@ class CpuPage extends Component {
     };
   }
   componentDidMount() {
-    axios.get('http://localhost:5000/cpu/get').then(cpu => {
+    axios.get('http://localhost:5000/cpu').then(cpu => {
       this.setState({ cpu: cpu.data });
     });
   }
