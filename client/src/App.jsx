@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { ColorModeScript } from "@chakra-ui/react";
 import axios from "axios";
 
 import "./app.css";
@@ -14,18 +13,26 @@ import SignupPage from "./pages/signup/signupPage";
 // - - - - - - - -
 // Admin section
 import AdminPanel from "./pages/adminPanel/adminPanel";
-import UserPanel from "./components/adminPanel/userPanel/userPanel";
-import ViewUsers from "./components/adminPanel/userPanel/viewUsers";
-import UserDetails from "./components/adminPanel/userPanel/userDetails";
-import EditUser from "./components/adminPanel/userPanel/editUser";
-import AddUser from "./components/adminPanel/userPanel/addUser";
-import GpuPanel from "./components/adminPanel/gpuPanel/gpuPanel";
-import CpuPanel from "./components/adminPanel/cpuPanel/cpuPanel";
+// - - - - - - - -
+import UserPanel from "./components/admin/user/user";
+import ViewUsers from "./components/admin/user/user.view";
+import EditUser from "./components/admin/user/user.edit";
+import AddUser from "./components/admin/user/user.add";
+import UserDetails from "./components/admin/user/user.details";
+// - - - - - - - -
+import GpuPanel from "./components/admin/gpu/gpu";
+import ViewGpu from "./components/admin/gpu/gpu.view";
+import EditGpu from "./components/admin/gpu/gpu.edit";
+import AddGpu from "./components/admin/gpu/gpu.add";
+import GpuDetails from "./components/admin/gpu/gpu.details";
+// - - - - - - - -
+import CpuPanel from "./components/admin/cpu/cpu";
 
 function App() {
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
   const [isAdmin, setIsAdmin] = useState(false);
+  const [reload, setReload] = useState(false); // to reload the component by changing the value
 
   useEffect(() => {
     const getUser = async () => {
@@ -44,7 +51,7 @@ function App() {
     if (localStorage.getItem("userInfo"))
       getUser().catch((err) => {
         localStorage.removeItem("userInfo");
-        window.location.reload();
+        setReload(!reload);
       });
   }, []);
 
@@ -87,8 +94,10 @@ function App() {
             <Route path=":userId" element={<UserDetails />} />
           </Route>
           <Route path="gpus" element={<GpuPanel />}>
-            <Route path="edit/:gpuId" element={<></>} />
-            <Route path=":gpuId" element={<></>} />
+            <Route index element={<ViewGpu />} />
+            <Route path="edit/:gpuId" element={<EditGpu />} />
+            <Route path="add" element={<AddGpu />} />
+            <Route path=":gpuId" element={<GpuDetails />} />
           </Route>
           <Route path="cpus" element={<CpuPanel />}>
             <Route path="edit/:cpuId" element={<></>} />
