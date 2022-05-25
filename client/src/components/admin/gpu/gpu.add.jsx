@@ -67,22 +67,7 @@ const AddGpu = () => {
   const addGPU = async (e) => {
     e.preventDefault();
 
-    if (
-      gpu.name === "" ||
-      gpu.reference === "" ||
-      gpu.brand === "" ||
-      gpu.architecture === "" ||
-      gpu.node === "" ||
-      gpu.bus === "" ||
-      gpu.mem_size === "" ||
-      gpu.mem_type === "" ||
-      gpu.mem_interface === "" ||
-      gpu.freq_idle === "" ||
-      gpu.freq_boost === "" ||
-      gpu.bandwidth === "" ||
-      gpu.tdp === "" ||
-      gpu.price === ""
-    ) {
+    if (Object.values(gpu).some((elem) => elem === "")) {
       setError(true);
       setToast("Error", "Please fill all the fields", "error");
       return;
