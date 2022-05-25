@@ -4,7 +4,8 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 import SearchBar from "../searchBar/searchBar";
-import ItemCard from "../cards/card";
+import ItemCard from "../cards/adminCard";
+import "./user.view.css";
 
 const ViewUsers = () => {
   const [users, setUsers] = useState([]);
@@ -49,12 +50,7 @@ const ViewUsers = () => {
   return (
     <Flex flexDirection="column" w="100%" h="100%">
       <SearchBar setInput={setInput} target="user" marginBottom="2rem" />
-      <Grid
-        id="user__grid"
-        gap="2rem"
-        templateColumns="repeat(2, 1fr)"
-        autoRows="180px"
-      >
+      <Grid id="user__grid">
         {filteredData.map((user, i) => (
           <ItemCard
             key={"u" + i}
