@@ -16,7 +16,7 @@ There is 2 types of users : member and admin.
   - [ ] Edit their shopping cart (add or delete an item)
 
 - Admins can do the same as members and are able to :
-  - [ ] Add/edit/delete users except password (work-in-progress)
+  - [x] Add/edit/delete users except password
   - [ ] Add/edit/delete GPUs and CPUs (work-in-progress)
 
 ## GPUs & CPUs
@@ -24,6 +24,6 @@ There is 2 types of users : member and admin.
 ### Features :
 
 - [ ] Listing items on their respective pages (work-in-progress)
-- [ ] Items pages
+- [ ] Items pages (work-in-progress)
 - [ ] Showing specs of item when overing card
 - [ ] Add item to cart
