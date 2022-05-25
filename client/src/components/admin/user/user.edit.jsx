@@ -41,10 +41,10 @@ const EditUser = () => {
     }
   };
 
-  const setToast = (title, message, status) => {
+  const setToast = (title, description, status) => {
     return toast({
       title,
-      description: message,
+      description,
       status,
       duration: 2500,
       isClosable: true,
