@@ -3,7 +3,8 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 import SearchBar from "../searchBar/searchBar";
-import ItemCard from "../cards/card";
+import ItemCard from "../cards/adminCard";
+import "./gpu.view.css";
 
 const ViewGpu = () => {
   const [gpus, setGpus] = useState([]);
@@ -13,6 +14,7 @@ const ViewGpu = () => {
   useEffect(() => {
     const fetchGpus = async () => {
       setHasLoaded(false);
+
       const { user } = JSON.parse(localStorage.getItem("userInfo"));
       const bearer = `Bearer ${user}`;
       const url = "http://10.0.0.3:5000/gpu";
@@ -22,7 +24,6 @@ const ViewGpu = () => {
           headers: { Authorization: bearer },
         })
         .then((res) => {
-          console.log(res.data);
           setGpus(res.data);
           setHasLoaded(true);
         })
@@ -31,23 +32,19 @@ const ViewGpu = () => {
           setHasLoaded(false);
         });
     };
+
     fetchGpus();
   }, []);
 
   const filteredData = gpus.filter((gpu) => {
     if (input === "") return gpu;
-    return gpu.name.includes(input.toLowerCase());
+    return gpu.name.toLowerCase().includes(input.toLowerCase());
   });
 
   return (
     <Flex flexDirection="column" w="100%" h="100%">
       <SearchBar setInput={setInput} target="gpu" marginBottom="2rem" />
-      <Grid
-        id="gpu__grid"
-        gap="2rem"
-        templateColumns="repeat(2, 1fr)"
-        autoRows="180px"
-      >
+      <Grid id="gpu__grid">
         {filteredData.map((gpu, i) => (
           <ItemCard
             key={"gpu" + i}
