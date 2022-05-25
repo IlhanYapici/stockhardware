@@ -6,8 +6,13 @@ import "./app.css";
 
 import Navbar from "./components/navbar/navbar";
 import LandingPage from "./pages/landing/landingPage";
+// - - - - - - - -
+import GpuLanding from "./pages/gpu/gpu";
+import GpuList from "./pages/gpu/gpuList";
 import GpuPage from "./pages/gpu/gpuPage";
+// - - - - - - - -
 import CpuPage from "./pages/cpu/cpuPage";
+// - - - - - - - -
 import LoginPage from "./pages/login/loginPage";
 import SignupPage from "./pages/signup/signupPage";
 // - - - - - - - -
@@ -81,7 +86,10 @@ function App() {
           }
         >
           <Route index element={<LandingPage />} />
-          <Route path="gpu" element={<GpuPage />} />
+          <Route path="gpu" element={<GpuLanding />}>
+            <Route index element={<GpuList />} />
+            <Route path=":gpuId" element={<GpuPage />} />
+          </Route>
           <Route path="cpu" element={<CpuPage />} />
           <Route path="login" element={<LoginPage />} />
           <Route path="signin" element={<SignupPage />} />
