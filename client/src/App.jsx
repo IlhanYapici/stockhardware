@@ -8,10 +8,12 @@ import Navbar from "./components/navbar/navbar";
 import LandingPage from "./pages/landing/landingPage";
 // - - - - - - - -
 import GpuLanding from "./pages/gpu/gpu";
-import GpuList from "./pages/gpu/gpuList";
-import GpuPage from "./pages/gpu/gpuPage";
+import GpuList from "./components/gpu/gpu.list";
+import GpuPage from "./components/gpu/gpu.page";
 // - - - - - - - -
-import CpuPage from "./pages/cpu/cpuPage";
+import CpuLanding from "./pages/cpu/cpu";
+import CpuList from "./components/cpu/cpu.list";
+import CpuPage from "./components/cpu/cpu.page";
 // - - - - - - - -
 import LoginPage from "./pages/login/loginPage";
 import SignupPage from "./pages/signup/signupPage";
@@ -90,7 +92,10 @@ function App() {
             <Route index element={<GpuList />} />
             <Route path=":gpuId" element={<GpuPage />} />
           </Route>
-          <Route path="cpu" element={<CpuPage />} />
+          <Route path="cpu" element={<CpuPage />}>
+            <Route index element={<CpuList />} />
+            <Route path=":cpuId" element={<CpuPage />} />
+          </Route>
           <Route path="login" element={<LoginPage />} />
           <Route path="signin" element={<SignupPage />} />
         </Route>
