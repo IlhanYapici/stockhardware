@@ -1,15 +1,22 @@
 import { Flex, Text } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
 
 import LoginForm from "../../components/login/loginForm";
+import MoltenMetal from "../../components/background/animated.background";
 
 const LoginPage = () => {
   return (
-    <Flex flexDirection="column" alignItems="center">
+    <Flex
+      id="login__page"
+      h="100vh"
+      w="100%"
+      overflow="hidden"
+      position="absolute"
+      flexDirection="column"
+      alignItems="center"
+      justifyContent="center"
+    >
       <LoginForm />
-      <Text>
-        You don't have an account yet ? <Link to="/signin">Sign in</Link>
-      </Text>
+      <MoltenMetal />
     </Flex>
   );
 };

@@ -1,6 +1,8 @@
 import {
   Flex,
   Box,
+  Text,
+  Link,
   Heading,
   FormControl,
   FormLabel,
@@ -17,6 +19,8 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
+import MoltenMetal from "../background/animated.background";
+
 const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -31,7 +35,7 @@ const LoginForm = () => {
     if (userInfo) {
       navigate("/");
     }
-  }, [navigate]);
+  }, []);
 
   const loginHandler = async (e) => {
     e.preventDefault();
@@ -68,62 +72,67 @@ const LoginForm = () => {
   };
 
   return (
-    <Flex>
-      <Box p={2}>
-        <Box textAlign="center">
-          <Heading>Login</Heading>
-        </Box>
-        {error && (
-          <Alert status="error" variant="left-accent">
-            <AlertIcon />
-            <AlertTitle>
-              {error === 404 ? "User not found" : "Wrong password"}.
-            </AlertTitle>
-          </Alert>
-        )}
-        <Box my={4} textAlign="center">
-          <form onSubmit={loginHandler}>
-            <FormControl isRequired>
-              <FormLabel>Email</FormLabel>
-              <Input
-                type="email"
-                placeholder="example@xyz.com"
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </FormControl>
-            <FormControl mt={4} isRequired>
-              <FormLabel>Password</FormLabel>
-              <InputGroup>
+    <>
+      <Flex bg="rgba(237, 242, 247, 0.1)" borderRadius={10}>
+        <Box p={4}>
+          <Box textAlign="center">
+            <Heading>Login</Heading>
+          </Box>
+          {error && (
+            <Alert status="error" variant="left-accent">
+              <AlertIcon />
+              <AlertTitle>
+                {error === 404 ? "User not found" : "Wrong password"}.
+              </AlertTitle>
+            </Alert>
+          )}
+          <Box my={4} textAlign="center">
+            <form onSubmit={loginHandler}>
+              <FormControl isRequired>
+                <FormLabel>Email</FormLabel>
                 <Input
-                  type={show ? "text" : "password"}
-                  placeholder="********"
-                  onChange={(e) => setPassword(e.target.value)}
+                  type="email"
+                  placeholder="example@xyz.com"
+                  onChange={(e) => setEmail(e.target.value)}
                 />
-                <InputRightElement w="3.5rem">
-                  <Button
-                    variant="ghost"
-                    h="1.75rem"
-                    size="sm"
-                    onClick={() => setShow(!show)}
-                  >
-                    {show ? <ViewOffIcon /> : <ViewIcon />}
-                  </Button>
-                </InputRightElement>
-              </InputGroup>
-            </FormControl>
-            {isLoading ? (
-              <Button isLoading width="full" mt={4} type="submit">
-                Log In
-              </Button>
-            ) : (
-              <Button width="full" mt={4} type="submit">
-                Log In
-              </Button>
-            )}
-          </form>
+              </FormControl>
+              <FormControl mt={4} isRequired>
+                <FormLabel>Password</FormLabel>
+                <InputGroup>
+                  <Input
+                    type={show ? "text" : "password"}
+                    placeholder="********"
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                  <InputRightElement w="3.5rem">
+                    <Button
+                      variant="ghost"
+                      h="1.75rem"
+                      size="sm"
+                      onClick={() => setShow(!show)}
+                    >
+                      {show ? <ViewOffIcon /> : <ViewIcon />}
+                    </Button>
+                  </InputRightElement>
+                </InputGroup>
+              </FormControl>
+              {isLoading ? (
+                <Button isLoading width="full" mt={4} type="submit">
+                  Log In
+                </Button>
+              ) : (
+                <Button width="full" mt={4} type="submit">
+                  Log In
+                </Button>
+              )}
+            </form>
+          </Box>
+          <Text>
+            You don't have an account yet ? <Link to="/signin">Sign in</Link>
+          </Text>
         </Box>
-      </Box>
-    </Flex>
+      </Flex>
+    </>
   );
 };
 
