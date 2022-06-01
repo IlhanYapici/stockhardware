@@ -1,6 +1,7 @@
 # Client
 /client/node_modules
 /client/package-lock.json
+/client/vite.config.js
 
 # Server
 /server/node_modules
