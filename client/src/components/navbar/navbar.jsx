@@ -1,16 +1,16 @@
-import { useState } from 'react';
-import { Link, Outlet } from 'react-router-dom';
-import { Container, Flex, Button } from '@chakra-ui/react';
+import { useState } from "react";
+import { Link, Outlet } from "react-router-dom";
+import { Container, Flex, Button } from "@chakra-ui/react";
 
-import UserMenu from './userMenu/userMenu';
-import './navbar.css';
+import UserMenu from "./userMenu/userMenu";
+import "./navbar.css";
 
 const Navbar = ({ links, isAdmin, firstname, lastname }) => {
   const [location, setLocation] = useState(window.location.pathname);
 
   return (
     <>
-      <Container maxW="100%" centerContent>
+      <Container centerContent maxW="100%" position="fixed" zIndex="modal">
         <Flex
           id="navbar"
           flexDirection="row"
@@ -26,14 +26,14 @@ const Navbar = ({ links, isAdmin, firstname, lastname }) => {
             w="150px"
           >
             {links &&
-              links.map(link => {
+              links.map((link) => {
                 return (
                   <Link
                     className="navbar__link"
-                    onClick={e => setLocation(e.target.pathname)}
+                    onClick={(e) => setLocation(e.target.pathname)}
                     key={link}
                     to={`/${
-                      link.toLowerCase() === 'home' ? '' : link.toLowerCase()
+                      link.toLowerCase() === "home" ? "" : link.toLowerCase()
                     }`}
                   >
                     {link}
@@ -41,15 +41,15 @@ const Navbar = ({ links, isAdmin, firstname, lastname }) => {
                 );
               })}
           </Flex>
-          {localStorage.getItem('userInfo') ? (
+          {localStorage.getItem("userInfo") ? (
             <UserMenu
               isAdmin={isAdmin}
               firstname={firstname}
               lastname={lastname}
             />
-          ) : location !== '/login' ? (
+          ) : location !== "/login" ? (
             <Button>
-              <Link onClick={e => setLocation(e.target.pathname)} to="/login">
+              <Link onClick={(e) => setLocation(e.target.pathname)} to="/login">
                 Login
               </Link>
             </Button>
